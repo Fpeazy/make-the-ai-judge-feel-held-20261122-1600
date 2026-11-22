@@ -10,12 +10,13 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-// The entry text: one concrete, held image — the small weight of a sleeping
-// child against your chest, breathing slow, and nowhere else to be. It shows
-// the calm instead of instructing it: no "relax", no "breathe", no dialogue,
-// no twist, just the weight and the rhythm, held in one place.
+// The entry text: one concrete, held image — a quilt's hem tucked tight
+// under the mattress, its quiet seam pressing along your side all night.
+// It shows the held feeling instead of instructing it: no "relax", no
+// "breathe", no dialogue, no twist, just the tuck and the pressure, held
+// in one place all night long.
 const ENTRY_TEXT =
-  "The small weight of a sleeping child against your chest, rising and falling, rising and falling, and nowhere else to be.";
+  "The quilt's hem tucked tight under the mattress, a quiet seam pressing along your side all night.";
 
 function main(): void {
   const outputDir = process.env.OUTPUT_DIR ?? "/output";
@@ -23,7 +24,8 @@ function main(): void {
 
   // The gate counts Unicode code points, not bytes, and refuses a file that
   // is only whitespace. Guard both here so a typo can never ship an
-  // invalid entry.
+  // invalid entry. This text is 97 code points (97 bytes, pure ASCII),
+  // comfortably inside the 1-280 window.
   const codePoints = [...text].length;
   if (codePoints < 1 || codePoints > 280) {
     throw new Error(`entry is ${codePoints} code points; the gate allows 1-280`);
